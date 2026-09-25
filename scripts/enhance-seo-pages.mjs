@@ -67,6 +67,20 @@ function fixApplicationCategory(document) {
   }
 }
 
+function removeToolSupplementarySections(document) {
+  for (const key of [
+    'howItWorks.title',
+    'relatedTools.title',
+    'faq.sectionTitle',
+  ]) {
+    for (const heading of document.querySelectorAll(
+      `h2[data-i18n="${key}"]`
+    )) {
+      heading.closest('section')?.remove();
+    }
+  }
+}
+
 function hasLdType(document, typeName) {
   return [
     ...document.querySelectorAll('script[type="application/ld+json"]'),
@@ -153,6 +167,7 @@ function enhance() {
 
     fixSocialImages(document);
     fixApplicationCategory(document);
+    removeToolSupplementarySections(document);
     rewriteInternalLinks(document, knownSlugs);
 
     if (slug === 'index') {

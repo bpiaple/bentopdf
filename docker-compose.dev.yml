@@ -1,14 +1,13 @@
 services:
-  bentopdf:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        SIMPLE_MODE: false # false for default mode, true for simple mode
-    container_name: bentopdf
+  bentopdf-test2:
+    image: bentopdf-test2:latest
+    container_name: bentopdf-test2
     ports:
-      - '8080:8080'
+      - '8089:8080'
     restart: unless-stopped
     # For IPv4-only environments
-    #environment:
-    #  - DISABLE_IPV6=true
+    environment:
+     - DISABLE_IPV6=true
+    #  - ROBOTS_NOINDEX=true
+    volumes:
+      - ./config.json:/usr/share/nginx/html/config.json:ro

@@ -17,7 +17,7 @@ COPY . .
 
 # Build without type checking (vite build only)
 # Pass SIMPLE_MODE environment variable if provided
-ARG SIMPLE_MODE=false
+ARG SIMPLE_MODE=true
 ENV SIMPLE_MODE=$SIMPLE_MODE
 ARG DISABLE_GITHUB_STARS=false
 ENV DISABLE_GITHUB_STARS=$DISABLE_GITHUB_STARS
@@ -50,13 +50,13 @@ ENV VITE_TESSERACT_AVAILABLE_LANGUAGES=$VITE_TESSERACT_AVAILABLE_LANGUAGES
 ENV VITE_OCR_FONT_BASE_URL=$VITE_OCR_FONT_BASE_URL
 
 # Default UI language (e.g. en, fr, de, es, zh, ar)
-ARG VITE_DEFAULT_LANGUAGE
+ARG VITE_DEFAULT_LANGUAGE=fr
 ENV VITE_DEFAULT_LANGUAGE=$VITE_DEFAULT_LANGUAGE
 
 # Custom branding (e.g. VITE_BRAND_NAME=MyCompany VITE_BRAND_LOGO=my-logo.svg)
-ARG VITE_BRAND_NAME
-ARG VITE_BRAND_LOGO
-ARG VITE_FOOTER_TEXT
+ARG VITE_BRAND_NAME="Ville de Rimouski"
+ARG VITE_BRAND_LOGO="images/logo_ville_de_rimouski.png"
+ARG VITE_FOOTER_TEXT=" "
 ENV VITE_BRAND_NAME=$VITE_BRAND_NAME
 ENV VITE_BRAND_LOGO=$VITE_BRAND_LOGO
 ENV VITE_FOOTER_TEXT=$VITE_FOOTER_TEXT
@@ -67,10 +67,11 @@ ENV DISABLE_TOOLS=$DISABLE_TOOLS
 # Public-facing canonical site URL. Defaults to the official site so self-hosters
 # consolidate SEO signals back to bentopdf.com. Override with --build-arg
 # SITE_URL=https://your-domain.example to claim canonical for your own deployment.
-ARG SITE_URL=https://www.bentopdf.com
+ARG SITE_URL=https://rimouski.ca/
 ENV SITE_URL=$SITE_URL
 
 ENV NODE_OPTIONS="--max-old-space-size=3072"
+ENV ROBOTS_NOINDEX=true
 
 RUN --mount=type=secret,id=VITE_CORS_PROXY_URL,required=false \
     --mount=type=secret,id=VITE_CORS_PROXY_SECRET,required=false \
@@ -88,7 +89,7 @@ LABEL org.opencontainers.image.url="https://github.com/alam00000/bentopdf"
 ARG BASE_URL
 
 # Set this to "true" to disable Nginx listening on IPv6
-ENV DISABLE_IPV6=false
+ENV DISABLE_IPV6=true
 ENV PORT=8080
 
 USER root

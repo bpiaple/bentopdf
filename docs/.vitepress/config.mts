@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitepress'
 
-const SITE_URL = 'https://www.bentopdf.com'
+const SITE_URL = 'https://rimouski.ca/'
 
 export default defineConfig({
     title: "BentoPDF Docs",
